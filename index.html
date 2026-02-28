@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaDeck Counter 🔥</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0F0F14; color: white; font-family: 'Poppins', sans-serif; padding: 20px; margin: 0; }
+        header { background: #1A1A24; padding: 15px; text-align: center; border-bottom: 2px solid #6C3BFF; margin-bottom: 20px; }
+        .deck-card { background: #1A1A24; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .deck-title { font-weight: 700; color: #00E0FF; margin-bottom: 10px; font-size: 1.1rem; }
+        .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .cr-card { width: 100%; border-radius: 6px; display: block; }
+        #loading { text-align: center; margin-top: 100px; }
+        .spinner { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid #00E0FF; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error-msg { color: #FF3B3B; text-align: center; padding: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2 style="margin:0;">🎮 MetaDeck</h2>
+    </header>
+
+    <div id="loading">
+        <div class="spinner"></div>
+        <p>Buscando decks do Davi no GitHub...</p>
+    </div>
+
+    <div id="content" style="display:none;">
+        <h1 style="text-align:center; font-size: 1.5rem;">🔥 Decks Atuais</h1>
+        <div id="decksGrid"></div>
+    </div>
+
+    <script>
+        // Link ajustado para a estrutura de pasta que vi no seu print
+        const url = 'https://raw.githubusercontent.com/Davi558/meta-decks.json/main/meta-decks.json';
+        const imgBase = "https://royaleapi.github.io/cr-api-assets/cards/";
+
+        async function iniciarApp() {
+            try {
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error("Não encontrei o arquivo no GitHub");
+                }
+
+                const dados = await response.json();
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+                const grid = document.getElementById('decksGrid');
+                grid.innerHTML = '';
+
+                dados.forEach(deck => {
+                    grid.innerHTML += `
+                        <div class="deck-card">
+                            <div class="deck-title">${deck.name}</div>
+                            <div class="cards-grid">
+                                ${deck.cards.map(card => `
+                                    <img class="cr-card" 
+                                         src="${imgBase}${card}.png" 
+                                         onerror="this.src='https://placehold.co/60x80?text=Card'">
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                });
+
+            } catch (erro) {
+                console.error(erro);
+                document.getElementById('loading').innerHTML = `
+                    <div class="error-msg">
+                        ❌ ERRO DE CONEXÃO!<br><br>
+                        O site não achou seus decks.<br>
+                        Verifique se o link no GitHub está certo.
+                    </div>
+                `;
+            }
+        }
+
+        iniciarApp();
+    </script>
+</body>
+</html>
