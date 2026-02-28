@@ -1,0 +1,36 @@
+[
+    {
+        "id": "hog26", 
+        "name": "Hog Rider 2.6 Cycle", 
+        "type": "Cycle", 
+        "elixir": "2.6", 
+        "winRate": "51.2%",
+        "cards": ["hog-rider", "musketeer", "ice-golem", "ice-spirit", "skeletons", "cannon", "fireball", "the-log"],
+        "counters": [
+            {
+                "name": "Splashyard", 
+                "advantage": 75, 
+                "difficulty": "Fácil",
+                "cards": ["graveyard", "bowler", "baby-dragon", "ice-wizard", "tornado", "poison", "barbarian-barrel", "tombstone"],
+                "tips": "O Lançador destrói o Corredor e empurra tudo para trás. Use o Tornado para ativar a torre."
+            }
+        ]
+    },
+    {
+        "id": "golem", 
+        "name": "Golem Night Witch", 
+        "type": "Beatdown", 
+        "elixir": "4.4", 
+        "winRate": "52.1%",
+        "cards": ["golem", "night-witch", "lumberjack", "electro-dragon", "tornado", "barbarian-barrel", "lightning", "bomber"],
+        "counters": [
+            {
+                "name": "Inferno Tower Bait", 
+                "advantage": 70, 
+                "difficulty": "Médio",
+                "cards": ["goblin-barrel", "princess", "goblin-gang", "inferno-tower", "valkyrie", "ice-spirit", "the-log", "rocket"],
+                "tips": "Proteja a Torre Inferno do Relâmpago colocando-a na posição correta."
+            }
+        ]
+    }
+]
